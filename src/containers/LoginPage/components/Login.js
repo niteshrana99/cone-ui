@@ -1,0 +1,66 @@
+import React, { useState } from 'react'
+import { Link } from 'react-router-dom';
+import Button from '../../../components/Button/Button';
+import Input from '../../../components/Input/Input';
+
+const Login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  return (
+    <div>
+      {/* <div className="section"></div> */}
+      <main>
+        <center>
+          <div className="section"></div>
+
+         
+          {/* <div className="section"></div> */}
+
+          <div className="container">
+            <div className="z-depth-1 grey lighten-4 row" style={{ display: 'inline-block', 'padding': '32px 48px 0px 48px', border: '1px solid #EEE' }}>
+            <h5 className="indigo-text">Please, login into your account</h5>
+              <form className="col s12" method="post">
+                <div className='row'>
+                  <div className='col s12'>
+                  </div>
+                </div>
+
+                <div className='row'>
+                  <div className='input-field col s12'>
+                    <Input name="email" id="email" label="Enter your email" value={email}>
+                      <Input.icon icon="email" />
+                    </Input>
+                  </div>
+                </div>
+
+                <div className='row'>
+                  <div className='input-field col s12'>
+                  <Input name="password" id="password" label="Enter your password" value={password}>
+                    <Input.icon icon="security" />
+                  </Input>
+                  </div>
+                  <label style={{ float: 'right' }}>
+                    <a className='pink-text' href='#!'><b>Forgot Password?</b></a>
+                  </label>
+                </div>
+
+                <br />
+                <center>
+                  <div className='row'>
+                  <Button type='submit' name='btn_register'>Login</Button>
+                  </div>
+                </center>
+              </form>
+            </div>
+          </div>
+          <Link to="/register">Create account</Link>
+        </center>
+
+        <div className="section"></div>
+        <div className="section"></div>
+      </main>
+    </div>
+  )
+}
+
+export default Login
