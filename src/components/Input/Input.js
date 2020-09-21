@@ -1,12 +1,12 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useState } from 'react'
 import PropTypes from 'prop-types'
 import Icon from '../Icon/Icon'
 
-const Input = ({ type, name, value, autoComplete, label, id, onChange, children }) => {
+const Input = ({ type, name, value, autoComplete, label, id, onChange, children,onBlur}) => {
     return (
         <Fragment>
             {children}
-            <input type={type} autoComplete={autoComplete} name={name} id={id} value={value} onChange={onChange} />
+            <input onBlur={onBlur}  type={type} autoComplete={autoComplete} name={name} id={id} value={value} onChange={onChange} />
             <label htmlFor={id}>{label}</label>
         </Fragment>
     )
@@ -21,7 +21,8 @@ Input.propTypes = {
     autoComplete:PropTypes.string,
     label:PropTypes.string.isRequired,
     id:PropTypes.string.isRequired,
-    onChange:PropTypes.func
+    onChange:PropTypes.func,
+    onBlur:PropTypes.func,
 }
 
 Input.defaultProps = {
