@@ -11,3 +11,20 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.success {
+  color: #155724 !important;
+  background-color: #d4edda !important;
+}
+
+.error {
+  color: #721c24 !important;
+  background-color: #f8d7da !important;
+}
+
+.info {
+  color: #0c5460 !important;
+    background-color: #d1ecf1 !important;
+}
+
+

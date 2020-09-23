@@ -9,15 +9,17 @@ import {
   NAME_REGEX,
   PASSWORD_REGEX,
 } from "../../../constants/regex";
+import WithErrorHandler from "../../../hoc/WithErrorHandler";
 import network from "../../../utils/network";
 import styles from "./Register.module.css";
 
-const Register = () => {
+
+const Register = ({alertMessages}) => {
   const [registerForm, setRegisterForm] = useState({
-    email: "",
-    name: "",
-    password: "",
-    mobileNumber: "",
+    email: "rananitesh99@gmail.com",
+    name: "Nitesh",
+    password: "test123",
+    mobileNumber: "8629804778",
   });
 
   const [formErrors, setFormErrors] = useState({
@@ -40,10 +42,10 @@ const Register = () => {
     e.preventDefault();
     if(!formErrors.email || !formErrors.password || !formErrors.name || !formErrors.mobileNumber) return;
     if(!name || !password || !email || !mobileNumber) return;
-    const data = network.postData('register', registerForm).next().value.then((d) => {
-      console.log(d)
+    network.postData('register', registerForm).next().value.then((d) => {
+      alertMessages.success(d.data.message);
     }).catch(e => {
-      console.log(e);
+      alertMessages.error(e.response.data.error)
     });
   };
 
@@ -164,4 +166,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default WithErrorHandler(Register);
