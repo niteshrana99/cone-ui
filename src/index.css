@@ -27,4 +27,26 @@ code {
     background-color: #d1ecf1 !important;
 }
 
+.formElemDefaualt {
+  display: inline-block !important;
+  padding: 32px 48px 0px 48px !important;
+  border: 1px solid #EEE !important;
+  width: 100% !important
+}
 
+
+.strikeThrough {
+  text-decoration: line-through !important;
+}
+
+.position-relative {
+  position: relative;
+}
+
+.center-align {
+  text-align: center;
+}
+
+.curson-pointer {
+  cursor: pointer;
+}
