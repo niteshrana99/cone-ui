@@ -38,15 +38,16 @@ const Register = ({alertMessages}) => {
     });
   };
 
-  const registerSubmitHandler = (e) => {
+  const registerSubmitHandler = async(e) => {
     e.preventDefault();
     if(!formErrors.email || !formErrors.password || !formErrors.name || !formErrors.mobileNumber) return;
     if(!name || !password || !email || !mobileNumber) return;
-    network.postData('register', registerForm).next().value.then((d) => {
-      alertMessages.success(d.data.message);
-    }).catch(e => {
+    try {
+      const response = await network.postData('register', registerForm).next().value
+      alertMessages.success(response.data.message);
+    } catch(e) {
       alertMessages.error(e.response.data.error)
-    });
+    }
   };
 
   const validateRegEX = (e, regEx) => {

@@ -2,8 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import jwt from 'jsonwebtoken';
 import Button from '../../../components/Button/Button';
+import network from '../../../utils/network';
+import WithErrorHandler from '../../../hoc/WithErrorHandler';
 
-const Activate = () => {
+
+const Activate = ({alertMessages}) => {
     
     const [name,setName] = useState("");
     const {id} = useParams();
@@ -12,6 +15,17 @@ const Activate = () => {
         const userInfo = jwt.decode(id);
         setName(userInfo.name);
     }, []);
+
+    const verifyAccounthandler = async() => {
+      const userInfo = jwt.decode(id);
+      try {
+        const response = await network.postData('verifyuser', {...userInfo}).next().value;
+        alertMessages.success(response.data.message);
+      } catch(e) {  
+        alertMessages.error(e.response.data.error);
+      }
+      
+    }
     return (
         <div>
              <main>
@@ -26,7 +40,7 @@ const Activate = () => {
                   Please click on below button to verify your account.
               </div>
               <br />
-              <Button>Verify Account</Button>
+              <Button onClick={verifyAccounthandler}>Verify Account</Button>
               <br/><br/><br/><br/><br/>
             </div>
             <div className="section"></div>
@@ -40,4 +54,4 @@ const Activate = () => {
     )
 }
 
-export default Activate
+export default WithErrorHandler(Activate)
