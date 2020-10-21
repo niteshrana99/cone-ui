@@ -1,0 +1,26 @@
+.contactCaption {
+    position: absolute;
+    top: 5px;
+    left: 6px;
+    font-size: 12px;
+}
+
+.profileCaption {
+    position: absolute;
+    top: 5px;
+    left: 11px;
+    font-size: 12px; 
+}
+
+.cartCaption {
+    position: absolute;
+    top: 5px;
+    left: 15px;
+    font-size: 12px; 
+}
+
+.dropdownMenu {
+    width: 250px !important;
+    left: -129px !important;
+    top: 100% !important;
+}

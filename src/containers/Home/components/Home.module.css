@@ -1,0 +1,13 @@
+.intro {
+    font-size: 40px;
+    font-weight: 700;
+    font-family: "Montserrat", Arial, sans-serif;
+    margin-bottom: 0;
+}
+
+.brandIntro {
+    font-family: "Rokkitt", Georgia, serif;
+    font-size: 20px;
+    color: rgba(0, 0, 0, 0.3);
+    letter-spacing: 1px;
+}

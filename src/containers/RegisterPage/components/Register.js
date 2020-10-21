@@ -16,10 +16,10 @@ import styles from "./Register.module.css";
 
 const Register = ({alertMessages}) => {
   const [registerForm, setRegisterForm] = useState({
-    email: "rananitesh99@gmail.com",
-    name: "Nitesh",
-    password: "test123",
-    mobileNumber: "8629804778",
+    email: "",
+    name: "",
+    password: "",
+    mobileNumber: "",
   });
 
   const [formErrors, setFormErrors] = useState({

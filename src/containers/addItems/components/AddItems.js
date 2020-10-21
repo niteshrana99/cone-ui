@@ -4,10 +4,9 @@ import Input from "../../../components/Input/Input";
 import Select from "../../../components/Select/Select";
 import { sizes, productDep } from "../../../constants/appConstants";
 import M from 'materialize-css';
-import { shoesCollection, storageRef } from "../../../utils/firebase";
 import WithErrorHandler from "../../../hoc/WithErrorHandler";
 import Loader from "../../../components/Loader/Loader";
-
+import network from '../../../utils/network';
 
 const initialState = {
     productId:'',
@@ -22,8 +21,27 @@ const initialState = {
     files:[]
 }
 const AddItems = ({alertMessages}) => {
-  const sizesRef = useRef();
+  
+  const setFormData = () => {
+    const formData = new FormData();
+    formData.append('productId', productId)
+    formData.append('productName', productName)
+    formData.append('brandName', brandName)
+    formData.append('cost_price', cost_price)
+    formData.append('sell_price', sell_price)
+    formData.append('noOfItems', noOfItems)
+    formData.append('availableSizes', availableSizes)
+    formData.append('prodDepartment', prodDepartment);
+    formData.append('prodDesc', prodDesc);
+    for(let i of files) {
+      formData.append('images', i);
+    }
+    return formData;
+  }
+  
   const depRef = useRef();
+  const sizesRef = useRef();
+  const uploadFileRef = useRef()
   const [formState, setFormState] = useState(initialState);
   const [loading, setLoading] = useState(false);
 
@@ -58,65 +76,37 @@ const AddItems = ({alertMessages}) => {
     })
   }
 
-  const createProduct = async(filePaths) => {
+  const createProduct = async() => {
+    const formData = setFormData();
     try {
-      await shoesCollection.add({
-        ...formState,
-        files:filePaths
-      });
-      alertMessages.success("Product added Successfully");
+      await network.postData('uploadProduct', formData).next().value;
       setFormState(initialState);
-      // M.FormSelect.getInstance(sizesRef.current).input.value = "";
-      // M.FormSelect.getInstance(depRef.current).input.value = ""
-      // M.FormSelect.getInstance(depRef.current).$selectOptions.val("")
-      // M.FormSelect.getInstance(sizesRef.current).$selectOptions.val("")
+      depRef.current.value = "";
+      sizesRef.current.value = "";
+      M.FormSelect.getInstance(depRef.current).input.value = "";
+      M.FormSelect.getInstance(sizesRef.current).input.value = "";
+      uploadFileRef.current.value = "";
       setLoading(false);
+      alertMessages.success("Product added successfully.");
     } catch(e) {
       console.log(e);
       setLoading(false);
-      alertMessages.error("Some error occured. Please contact system Administrator.")
+      alertMessages.error("Some error occured. Please contact system administrator.");
     }
-    
   }
 
   const submitHandler = (e) => {
     e.preventDefault();
     M.FormSelect.init(document.getElementById(sizesRef.current.id))
-    if(!productId || !productName || !brandName || !cost_price || !sell_price || !noOfItems || !prodDesc || files.length === 0 || formState.availableSizes.length === 0 || formState.prodDepartment.length === 0) {
+    if(!productId || !productName || !brandName || !cost_price || !sell_price || !noOfItems || !prodDesc || files.length === 0  || formState.prodDepartment.length === 0) {
       alertMessages.error("One or more fields are missing. Please make sure no field is empty");
       return;
     }
     setLoading(true);
-    const promises = [];
-    const filePathPromise = []
-    files.forEach((file) => {
-      const uploadTask = storageRef.child(`images/${productId}/${file.name}`).put(file);
-      promises.push(uploadTask);
-      uploadTask.on('state_changed', () => {
-      },
-      error =>  {
-        setLoading(false);
-        alertMessages.error("Some error occured. Please contact system Administrator.")
-      },
-      () =>  {
-        filePathPromise.push(uploadTask.snapshot.ref.getDownloadURL());
-      }
-      )
-    });
-    Promise.all(promises)
-       .then(() => {
-        Promise.all(filePathPromise).then((downLoadUrls) => {
-          const filePaths = downLoadUrls;
-          createProduct(filePaths);
-        })
-    })
-       .catch(err => {
-        setLoading(false);
-        alertMessages.error("Some error occured. Please contact system Administrator.")
-       });
+    createProduct();
   }
 
-  const {productId, productName, brandName, cost_price, sell_price, noOfItems,prodDesc, files} = formState;
+  const {prodDepartment, availableSizes, productId, productName, brandName, cost_price, sell_price, noOfItems,prodDesc, files} = formState;
   return (
     <div>
       {loading && <Loader />}
@@ -125,7 +115,7 @@ const AddItems = ({alertMessages}) => {
 
         <div className="z-depth-1 grey lighten-4 row formElemDefaualt">
           <h5 className="indigo-text">Add new product here</h5>
-          <form className="col s12" method="post" onSubmit={submitHandler}>
+          <form className="col s12" method="post"  onSubmit={submitHandler}>
             <div className="row">
               <div className="col s12"></div>
             </div>
@@ -210,26 +200,25 @@ const AddItems = ({alertMessages}) => {
               <div className="input-field col m4 s12">
                 <textarea
                   id="textarea1"
-                  class="materialize-textarea"
+                  className="materialize-textarea"
                   value={prodDesc}
                   name="prodDesc"
                   onChange={onInputChangeHandler}
                 ></textarea>
-                <label for="textarea1">Product Description(; seperated)</label>
+                <label htmlFor="textarea1">Product Description(; seperated)</label>
               </div>
               <div className="input-field col m6 s12">
-                <div class="file-field input-field">
-                  <div class="btn">
+                <div className="file-field input-field">
+                  <div className="btn">
                     <span>Upload Images(4)</span>
-                    <input onChange={fileSelectHandler} type="file" multiple />
+                    <input onChange={fileSelectHandler} name="images" type="file" multiple />
                   </div>
-                  <div class="file-path-wrapper">
-                    <input class="file-path validate" type="text" />
+                  <div className="file-path-wrapper">
+                    <input className="file-path validate" ref={uploadFileRef}  type="text" />
                   </div>
                 </div>
               </div>
             </div>
-
             <br />
             <center>
               <div className="row">

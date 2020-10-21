@@ -7,6 +7,9 @@ import store from './store/store';
 import {Provider} from "react-redux";
 import 'materialize-css/dist/css/materialize.min.css';
 import firebase from './utils/firebase';
+import axios from 'axios';
+
+axios.defaults.withCredentials = true;
 
 ReactDOM.render(
   <React.StrictMode>

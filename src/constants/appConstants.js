@@ -10,6 +10,5 @@ export const productDep = [
     { label: "Men Shoes", value: "Men Shoes" },
     { label: "Women Shoes", value: "Women Shoes" },
     { label: "Unisex Shoes", value: "Unisex Shoes" },
-    { label: "Mobile Cover Men", value: "Mobile Cover Men" },
-    { label: "Mobile Cover Women", value: "Mobile Cover Women" },
+    { label: "Mobile Cover", value: "Mobile Cover" }
 ]

@@ -20,4 +20,4 @@ Button.defaaultProps = {
     disabled: false
 }
 
-export default Button
+export default Button;

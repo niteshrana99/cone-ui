@@ -6,6 +6,7 @@ import RegsiterPage from '../../RegisterPage';
 import Activate from '../../RegisterPage/components/Activate';
 import AddItems from '../../addItems';
 import Products from '../../Products';
+import Home from '../../Home';
 
 const Layout = () => {
     return (
@@ -18,8 +19,7 @@ const Layout = () => {
                 <Route path="/auth/activate/:id" exact component={Activate} />
                 <Route path="/products" exact component={Products} />
                 <Route path="/addItems" exact component={AddItems} />
-                    {/* 
-                     */}
+                <Route path="/" exact component={Home} />
                 </Switch>
             </main>
         </div>
