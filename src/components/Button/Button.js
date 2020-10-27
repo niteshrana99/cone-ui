@@ -16,7 +16,7 @@ Button.propTypes = {
     disabled:PropTypes.bool,
 }
 
-Button.defaaultProps = {
+Button.defaultProps = {
     disabled: false
 }
 

@@ -1,20 +1,19 @@
-import React from 'react'
-import styles from './CategoryCard.module.css'
+import React from "react";
+import styles from "./CategoryCard.module.css";
 
-const CategoryCard = ({imageUrl, caption}) => {
-    return (
-        <div>
-            <div className="card">
+const CategoryCard = ({ imgUrl, caption }) => {
+  return (
+    <div>
+      <div className="card">
         <div className="card-image">
-          <img className={styles.image} src={imageUrl} />
-         
+          <img className={styles.image} src={imgUrl} />
         </div>
         <div className="card-content center-align">
-            <h5>{caption}</h5>
+          <h5>{caption}</h5>
         </div>
       </div>
-        </div>
-    )
-}
+    </div>
+  );
+};
 
-export default CategoryCard
+export default CategoryCard;

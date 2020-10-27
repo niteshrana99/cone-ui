@@ -1,5 +1,4 @@
 import Login from "./components/Login";
-import { compose } from "redux";
 
 const { connect } = require("react-redux");
 

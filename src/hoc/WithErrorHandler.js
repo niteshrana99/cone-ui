@@ -11,7 +11,7 @@ const WithErrorHandler = (WrappedCompnent) => {
         render() {
             return (
                 <React.Fragment>
-                <WrappedCompnent alertMessages={this.alertMessages} />
+                <WrappedCompnent {...this.props} alertMessages={this.alertMessages} />
                 </React.Fragment>
             )
         }

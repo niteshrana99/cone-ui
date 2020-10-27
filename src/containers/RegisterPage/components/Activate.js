@@ -14,7 +14,7 @@ const Activate = ({alertMessages}) => {
     useEffect(() => {
         const userInfo = jwt.decode(id);
         setName(userInfo.name);
-    }, []);
+    }, [id]);
 
     const verifyAccounthandler = async() => {
       const userInfo = jwt.decode(id);

@@ -21,7 +21,7 @@ const Login = ({alertMessages}) => {
     if(!email || !password) return alertMessages.error("Please provide valid credentials")
     setLoading(true)
     try {
-      const response = await network.postData('login', loginFormState).next().value;
+      await network.postData('login', loginFormState).next().value;
       setLoading(false);
       alertMessages.success("User successfully logged in.")
     } catch (error) {

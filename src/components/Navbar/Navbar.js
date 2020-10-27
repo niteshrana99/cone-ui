@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 const Navbar = () => {
   useEffect(() => {
     var elems = document.querySelectorAll(".dropdown-trigger");
-    var instances = M.Dropdown.init(elems, {
+    M.Dropdown.init(elems, {
         constrainWidth: false,
         coverTrigger: false,
         closeOnClick: false
@@ -18,15 +18,15 @@ const Navbar = () => {
   return (
     <nav>
       <div className="nav-wrapper  teal">
-        <a href="#" className="brand-logo">
+        <Link to="/" href="#" className="brand-logo">
           <img
             style={{ width: "18%", transform: "scale(1.5)" }}
-            src={logo_v_1}
+            src={logo_v_1} alt="brand Logo"
           />
-        </a>
+        </Link>
         <ul id="nav-mobile" className="right ">
         <li className="position-relative center-align">
-            <a  className="dropdown-trigger" data-target="dropdown1">
+            <a href="javscript;void(0)" className="dropdown-trigger" data-target="dropdown1">
               <i className="material-icons">person_pin</i>
               <p className={styles.profileCaption}>Profile</p>
             </a>
